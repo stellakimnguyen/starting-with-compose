@@ -10,10 +10,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposecrashcourse.ui.theme.JetpackComposeCrashCourseTheme
@@ -58,19 +55,27 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    LazyColumn {
-                        items(names) {currentName ->
-                            Text(
-                                text = currentName,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp)
-                            )
-                            Divider()
-                        }
-                    }
+                    NameList(names = names)
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun NameList(
+    names: List<String>,
+    modifier: Modifier = Modifier // In order to modify composable externally
+) {
+    LazyColumn(modifier) {
+        items(names) {currentName ->
+            Text(
+                text = currentName,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+            Divider()
         }
     }
 }
